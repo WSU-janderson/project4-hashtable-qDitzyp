@@ -6,7 +6,7 @@
 class HashTable {
     public:
     HashTable(size_t initCapacity = 8);
-    bool insert(const std::string$ key, const size_t& value);
+    bool insert(const std::string key, const size_t& value);
     bool remove(const std::string& key);
     bool contains(const string& key) const;
     std::optional<size_t> get(const string& key) const;
