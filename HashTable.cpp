@@ -26,10 +26,9 @@ bool HashTable::insert(const std::string key, const size_t &value) {
         return false;
     }
     for (int i = 0; i < buckets.size(); i++) {
-        if (buckets[i].isEmpty() == true) {
-            buckets[i].setKey(key);
-            buckets[i].setVal(value);
-            amFull++;
+        if (buckets[probe(offsets, i, 0)].isEmpty()) {
+            buckets[probe(offsets, i, 0)].setKey(key);
+            buckets[probe(offsets, i, 0)].setVal(value);
             return true;
         }
     }
@@ -51,11 +50,20 @@ bool HashTable::insert(const std::string key, const size_t &value) {
 }
 
 bool HashTable::contains(const string& key) const{
-
+    for (int i = 0; i < buckets.size(); i++) {
+        if (buckets[probe(offsets, i, 0)].getKey() == key) {
+            return true;
+        }
+    }
+    return false;
 }
 
 std::optional<size_t> HashTable::get(const std::string &key) const {
-
+    for (int i = 0; i < buckets.size(); i++) {
+        if (buckets[probe(offsets, i, 0)].getKey() == key) {
+            return buckets[probe(offsets, i, 0)].getVal();
+        }
+    }
 }
 
 size_t& HashTable::operator[](const string& key) {
@@ -72,21 +80,27 @@ double HashTable::alpha() const{
 }
 
 size_t HashTable::capacity() const {
-
+    return buckets.size();
 }
 
 size_t HashTable::size() const{
-
+    return amFull;
 }
 
 ostream& operator<<(ostream& os, const HashTable& hashTable) {
 
 }
 
-int HashTable::probe(std::vector<size_t> offsets, int attempt, size_t home) {
+int HashTable::probe(std::vector<size_t> offsets, int attempt, size_t home) const{
 
 }
 
 bool HashTable::remove(const string& key){
-
+    for (int i = 0; i < buckets.size(); i++) {
+        if (buckets[probe(offsets, i, 0)].getKey() == key){
+            buckets[probe(offsets, i, 0)].emptyBucket();
+            return true;
+        }
+    }
+    return false;
 }

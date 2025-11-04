@@ -20,7 +20,7 @@ class HashTable {
         size_t capacity() const;
         size_t size() const;
         friend std::ostream& operator<<(std::ostream& os, const HashTable& hashTable);
-        int probe(std::vector<size_t> offsets, int attempt, size_t home);
+        int probe(std::vector<size_t> offsets, int attempt, size_t home) const;
 
     private:
     std::vector<HashTableBucket> buckets;

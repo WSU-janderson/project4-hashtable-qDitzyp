@@ -15,8 +15,8 @@ public:
         void load(const std::string& key, const size_t& value);
         bool isEmpty() const;
         friend std::ostream& operator<<(std::ostream& os, const HashTableBucket& bucket);
-        int getVal();
-        std::string getKey();
+        int getVal() const;
+        std::string getKey() const;
         void setKey(std::string newKey);
         void setVal(int newVal);
         void setStatus(int statCode);

@@ -15,11 +15,11 @@ HashTableBucket::HashTableBucket(const std::string &key, const size_t &value) {
     type = BucketType::NORMAL;
 }
 
-std::string HashTableBucket::getKey() {
+std::string HashTableBucket::getKey() const{
       return this->key;
 }
 
-int HashTableBucket::getVal() {
+int HashTableBucket::getVal() const{
     return this->data;
 }
 
