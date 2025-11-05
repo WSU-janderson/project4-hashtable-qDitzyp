@@ -67,7 +67,11 @@ std::optional<size_t> HashTable::get(const std::string &key) const {
 }
 
 size_t& HashTable::operator[](const string& key) {
-
+    for (int i = 0; i < buckets.size(); i++) {
+        if (buckets[probe(offsets, i, 0)].getKey() == key) {
+            return buckets[probe(offsets, i, 0)];
+        }
+    }
 }
 
 std::vector<std::string> HashTable::keys() const {
@@ -92,13 +96,14 @@ ostream& operator<<(ostream& os, const HashTable& hashTable) {
 }
 
 int HashTable::probe(std::vector<size_t> offsets, int attempt, size_t home) const{
-
+    return (offsets[attempt] + home) % offsets.size();
 }
 
 bool HashTable::remove(const string& key){
     for (int i = 0; i < buckets.size(); i++) {
         if (buckets[probe(offsets, i, 0)].getKey() == key){
             buckets[probe(offsets, i, 0)].emptyBucket();
+            amFull--;
             return true;
         }
     }
